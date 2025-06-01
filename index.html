@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-T">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generator Prompt Google Veo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6; /* Light gray background */
+        }
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 0.75rem; /* Rounded corners */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #374151; /* Darker gray for labels */
+        }
+        input[type="text"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db; /* Gray border */
+            border-radius: 0.5rem; /* Rounded corners for inputs */
+            margin-bottom: 1rem;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+        input[type="text"]:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #2563eb; /* Blue border on focus */
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+        }
+        button {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        .btn-primary {
+            background-color: #2563eb; /* Blue button */
+            color: white;
+        }
+        .btn-primary:hover {
+            background-color: #1d4ed8; /* Darker blue on hover */
+        }
+        .btn-secondary {
+            background-color: #6b7280; /* Gray button */
+            color: white;
+        }
+        .btn-secondary:hover {
+            background-color: #4b5563; /* Darker gray on hover */
+        }
+        #generatedPromptContainer {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background-color: #e5e7eb; /* Lighter gray for prompt display */
+            border-radius: 0.5rem;
+            border: 1px solid #d1d5db;
+        }
+        #generatedPrompt {
+            white-space: pre-wrap; /* Preserve line breaks */
+            word-wrap: break-word;
+            color: #1f2937; /* Dark gray text for prompt */
+        }
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #10b981; /* Green for success */
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .toast.show {
+            opacity: 1;
+        }
+        .info-text {
+            font-size: 0.875rem;
+            color: #6b7280;
+            margin-bottom: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-3xl font-bold mb-6 text-center text-gray-800">Generator Prompt Google Veo</h1>
+        <p class="info-text text-center">
+            Isi parameter di bawah ini untuk menghasilkan prompt video yang mendetail untuk Google Veo.
+            Semakin spesifik Anda, semakin baik hasilnya!
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div>
+                <label for="subject">Subjek Utama:</label>
+                <input type="text" id="subject" placeholder="Contoh: Seekor naga emas raksasa">
+            </div>
+            <div>
+                <label for="action">Aksi/Kegiatan:</label>
+                <input type="text" id="action" placeholder="Contoh: terbang melintasi pegunungan bersalju">
+            </div>
+        </div>
+
+        <div class="mb-6">
+            <label for="setting">Setting/Lingkungan:</label>
+            <input type="text" id="setting" placeholder="Contoh: di dunia fantasi abad pertengahan, saat matahari terbit">
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div>
+                <label for="artisticStyle">Gaya Artistik:</label>
+                <select id="artisticStyle">
+                    <option value="">-- Pilih Gaya --</option>
+                    <option value="photorealistic">Fotorealistik</option>
+                    <option value="cinematic">Sinematik</option>
+                    <option value="anime">Anime</option>
+                    <option value="watercolor painting">Lukisan Cat Air</option>
+                    <option value="pixel art">Seni Piksel</option>
+                    <option value="cartoonish">Kartun</option>
+                    <option value="fantasy art">Seni Fantasi</option>
+                    <option value="surreal">Surealis</option>
+                    <option value="steampunk">Steampunk</option>
+                    <option value="gothic">Gotik</option>
+                    <option value="abstract">Abstrak</option>
+                    <option value="vaporwave">Vaporwave</option>
+                    <option value="claymation">Claymation</option>
+                    <option value="3D render">Render 3D</option>
+                    <option value="documentary style">Gaya Dokumenter</option>
+                </select>
+            </div>
+            <div>
+                <label for="cameraShot">Sudut Kamera/Jenis Bidikan:</label>
+                <select id="cameraShot">
+                    <option value="">-- Pilih Bidikan --</option>
+                    <option value="close-up shot">Close-up</option>
+                    <option value="medium shot">Medium Shot</option>
+                    <option value="long shot">Long Shot / Wide Shot</option>
+                    <option value="extreme wide shot">Extreme Wide Shot</option>
+                    <option value="bird's-eye view">Bird's-eye View</option>
+                    <option value="worm's-eye view">Worm's-eye View</option>
+                    <option value="dutch angle">Dutch Angle</option>
+                    <option value="drone shot">Drone Shot</option>
+                    <option value="first-person POV">First-person POV</option>
+                    <option value="over-the-shoulder shot">Over-the-shoulder Shot</option>
+                    <option value="tracking shot">Tracking Shot</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div>
+                <label for="lighting">Pencahayaan:</label>
+                <select id="lighting">
+                    <option value="">-- Pilih Pencahayaan --</option>
+                    <option value="golden hour lighting">Golden Hour</option>
+                    <option value="neon lighting">Cahaya Neon</option>
+                    <option value="dim and moody lighting">Remang-remang & Misterius</option>
+                    <option value="bright daylight">Siang Hari Cerah</option>
+                    <option value="studio lighting">Studio Light</option>
+                    <option value="backlit">Backlight / Cahaya dari Belakang</option>
+                    <option value="silhouette">Siluet</option>
+                    <option value="volumetric lighting">Pencahayaan Volumetrik</option>
+                    <option value="cinematic lighting">Pencahayaan Sinematik</option>
+                </select>
+            </div>
+            <div>
+                <label for="colors">Palet Warna:</label>
+                <input type="text" id="colors" placeholder="Contoh: warna pastel lembut, monokromatik biru">
+            </div>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div>
+                <label for="aspectRatio">Rasio Aspek Video:</label>
+                <select id="aspectRatio">
+                    <option value="">-- Pilih Rasio Aspek --</option>
+                    <option value="16:9 aspect ratio">16:9 (Lanskap)</option>
+                    <option value="9:16 aspect ratio">9:16 (Potret)</option>
+                    <option value="1:1 aspect ratio">1:1 (Persegi)</option>
+                    <option value="4:3 aspect ratio">4:3 (Klasik)</option>
+                    <option value="2.35:1 aspect ratio">2.35:1 (Sinematik Lebar)</option>
+                </select>
+            </div>
+            <div>
+                <label for="duration">Durasi (opsional):</label>
+                <input type="text" id="duration" placeholder="Contoh: short, 10 seconds">
+            </div>
+        </div>
+
+        <div class="mb-6">
+            <label for="additionalDetails">Detail Tambahan:</label>
+            <textarea id="additionalDetails" rows="3" placeholder="Contoh: dengan efek bokeh, hujan rintik-rintik, kualitas 8K, sangat detail"></textarea>
+        </div>
+
+        <div class="mb-6">
+            <label for="negativePrompt">Prompt Negatif (opsional):</label>
+            <input type="text" id="negativePrompt" placeholder="Contoh: buram, kualitas rendah, teks, watermark, manusia">
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <button id="generateBtn" class="btn-primary w-full sm:w-auto">Hasilkan Prompt</button>
+            <button id="resetBtn" class="btn-secondary w-full sm:w-auto">Reset Kolom</button>
+        </div>
+
+        <div id="generatedPromptContainer" class="hidden">
+            <h2 class="text-xl font-semibold mb-2 text-gray-700">Prompt yang Dihasilkan:</h2>
+            <p id="generatedPrompt"></p>
+            <button id="copyBtn" class="btn-primary mt-4 w-full sm:w-auto">Salin Prompt</button>
+        </div>
+    </div>
+
+    <div id="toast" class="toast">Prompt disalin ke clipboard!</div>
+
+    <script>
+        // Ambil elemen-elemen dari DOM
+        const subjectEl = document.getElementById('subject');
+        const actionEl = document.getElementById('action');
+        const settingEl = document.getElementById('setting');
+        const artisticStyleEl = document.getElementById('artisticStyle');
+        const cameraShotEl = document.getElementById('cameraShot');
+        const lightingEl = document.getElementById('lighting');
+        const colorsEl = document.getElementById('colors');
+        const aspectRatioEl = document.getElementById('aspectRatio');
+        const durationEl = document.getElementById('duration');
+        const additionalDetailsEl = document.getElementById('additionalDetails');
+        const negativePromptEl = document.getElementById('negativePrompt');
+
+        const generateBtn = document.getElementById('generateBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const copyBtn = document.getElementById('copyBtn');
+        
+        const generatedPromptContainer = document.getElementById('generatedPromptContainer');
+        const generatedPromptTextEl = document.getElementById('generatedPrompt');
+        const toastEl = document.getElementById('toast');
+
+        // Event listener untuk tombol "Hasilkan Prompt"
+        generateBtn.addEventListener('click', () => {
+            let promptParts = [];
+
+            // Kumpulkan nilai dari setiap input dan tambahkan jika ada isinya
+            const subject = subjectEl.value.trim();
+            if (subject) promptParts.push(subject);
+
+            const action = actionEl.value.trim();
+            if (action) promptParts.push(action);
+
+            const setting = settingEl.value.trim();
+            if (setting) promptParts.push(`in ${setting}`); // Tambahkan 'in' untuk setting
+
+            const artisticStyle = artisticStyleEl.value;
+            if (artisticStyle) promptParts.push(`style of ${artisticStyle}`);
+
+            const cameraShot = cameraShotEl.value;
+            if (cameraShot) promptParts.push(cameraShot);
+
+            const lighting = lightingEl.value;
+            if (lighting) promptParts.push(lighting);
+
+            const colors = colorsEl.value.trim();
+            if (colors) promptParts.push(`color palette of ${colors}`);
+            
+            const aspectRatio = aspectRatioEl.value;
+            if (aspectRatio) promptParts.push(aspectRatio);
+
+            const duration = durationEl.value.trim();
+            if (duration) promptParts.push(`duration ${duration}`);
+
+            const additionalDetails = additionalDetailsEl.value.trim();
+            if (additionalDetails) promptParts.push(additionalDetails);
+            
+            // Gabungkan semua bagian menjadi satu string prompt
+            let finalPrompt = promptParts.join(', ');
+
+            const negativePrompt = negativePromptEl.value.trim();
+            if (negativePrompt) {
+                finalPrompt += `. Avoid: ${negativePrompt}.`; // Tambahkan prompt negatif jika ada
+            } else {
+                finalPrompt += '.'; // Akhiri dengan titik jika tidak ada prompt negatif
+            }
+            
+            // Tampilkan prompt yang dihasilkan
+            generatedPromptTextEl.textContent = finalPrompt;
+            generatedPromptContainer.classList.remove('hidden');
+        });
+
+        // Event listener untuk tombol "Salin Prompt"
+        copyBtn.addEventListener('click', () => {
+            const textToCopy = generatedPromptTextEl.textContent;
+            // Menggunakan textarea sementara untuk menyalin teks
+            const tempTextArea = document.createElement('textarea');
+            tempTextArea.value = textToCopy;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            try {
+                document.execCommand('copy'); // Coba salin teks
+                showToast('Prompt disalin ke clipboard!');
+            } catch (err) {
+                console.error('Gagal menyalin teks: ', err);
+                showToast('Gagal menyalin. Salin secara manual.');
+            }
+            document.body.removeChild(tempTextArea); // Hapus textarea sementara
+        });
+
+        // Event listener untuk tombol "Reset Kolom"
+        resetBtn.addEventListener('click', () => {
+            subjectEl.value = '';
+            actionEl.value = '';
+            settingEl.value = '';
+            artisticStyleEl.value = '';
+            cameraShotEl.value = '';
+            lightingEl.value = '';
+            colorsEl.value = '';
+            aspectRatioEl.value = '';
+            durationEl.value = '';
+            additionalDetailsEl.value = '';
+            negativePromptEl.value = '';
+            generatedPromptTextEl.textContent = '';
+            generatedPromptContainer.classList.add('hidden');
+        });
+
+        // Fungsi untuk menampilkan notifikasi toast
+        function showToast(message) {
+            toastEl.textContent = message;
+            toastEl.classList.add('show');
+            setTimeout(() => {
+                toastEl.classList.remove('show');
+            }, 3000); // Notifikasi hilang setelah 3 detik
+        }
+
+    </script>
+</body>
+</html>
